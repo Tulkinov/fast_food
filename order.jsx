@@ -10,13 +10,13 @@ export default class order extends Component {
                 this.props.data.selected.map(value=>(
                   <div className="order">
                     <h1> {value.title} - {value.price} som 
-                      <button onClick={()=>this.props.onDelete(value.id)} >DELETE</button>
+                      <button onClick={()=>this.props.onDelete(value.selectedId)} >DELETE</button>
                     </h1>
                   </div>
                 ))
               }
               <h1 className="title">Total {this.props.data.total} som</h1>
-              <button onClick={()=>this.setState({selected: [], total: 0,})}>cancale</button>
+              <button onClick={this.props.onCancel}>cancale</button>
               <button>order</button>
             </div>                
 

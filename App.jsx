@@ -15,7 +15,7 @@ export default class App extends Component {
   render() {
     const onselect=(value)=>{
       console.log(value);
-      const selected=[...this.state.selected, value];
+      const selected=[...this.state.selected, {...value, selectedId: this.state.selected.length}, ];
       this.setState({selected})
       console.log(selected);
       selected.forEach(value=>(
@@ -24,10 +24,13 @@ export default class App extends Component {
     }
     const onDelete=(id)=>{
       const selected =this.state.selected.filter((value)=>{
-        value.id === id &&
+        value.selectedId === id &&
         this.setState({total: this.state.total-value.price})
-        return value.id !==id})
+        return value.selectedId !==id})
       this.setState({selected})
+    }
+    const onCancel =()=>{
+      this.setState({celected: [], total: 0,})
     }
     return (
       <div className="wrapper">
@@ -51,7 +54,9 @@ export default class App extends Component {
             )
           })}
         </div >
-        <Order onDelete={(id)=>onDelete(id)} data={this.state}/>
+        <Order onCancel={onCancel}
+         onDelete={(id)=>onDelete(id)} 
+         data={this.state}/>
       </div>
     )
   }
